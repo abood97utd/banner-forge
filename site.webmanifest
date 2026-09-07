@@ -1,0 +1,14 @@
+{
+  "name": "Banner Forge",
+  "short_name": "BannerForge",
+  "description": "Turn text into box-drawing or ASCII banners for SQL, CMD, Bash, Python and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1B2430",
+  "theme_color": "#1B2430",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

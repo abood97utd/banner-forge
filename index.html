@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banner Forge – Free ASCII &amp; Box-Drawing Text Banner Generator for SQL, CMD, Bash, Python</title>
+<meta name="description" content="Free online banner generator. Turn any text into box-drawing or ASCII art (╔═╗ ┌─┐ █ #) and export it as SQL comments, CMD batch, PowerShell, Bash, Python, C#, JavaScript, Markdown or HTML. No sign-up, runs in your browser.">
+<meta name="keywords" content="ascii art generator, text banner generator, box drawing characters, sql header comment, batch file banner, ascii banner, unicode text art, figlet online, code header generator">
+<meta name="author" content="Banner Forge">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1B2430">
+<link rel="canonical" href="https://bannerforge.app/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="sitemap" type="application/xml" href="sitemap.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Banner Forge">
+<meta property="og:title" content="Banner Forge – ASCII &amp; Box-Drawing Text Banner Generator">
+<meta property="og:description" content="Turn any text into box-drawing or ASCII art and export it for SQL, CMD, PowerShell, Bash, Python, C# and more.">
+<meta property="og:url" content="https://bannerforge.app/">
+<meta property="og:image" content="https://bannerforge.app/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Banner Forge – ASCII &amp; Box-Drawing Text Banner Generator">
+<meta name="twitter:description" content="Free text banner generator with 13 styles and 14 code formats.">
+<meta name="twitter:image" content="https://bannerforge.app/og-image.png">
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "WebApplication",
+	"name": "Banner Forge",
+	"url": "https://bannerforge.app/",
+	"description": "Free online tool that turns text into box-drawing or ASCII art banners and exports them as SQL, CMD, PowerShell, Bash, Python, C#, JavaScript, Markdown or HTML.",
+	"applicationCategory": "DeveloperApplication",
+	"operatingSystem": "Any",
+	"browserRequirements": "Requires JavaScript",
+	"offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+	"featureList": ["13 letter styles", "14 output formats", "Copy or download as .txt"]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+	:root{
+		--bg:#1B2430;
+		--panel:#243040;
+		--panel2:#2C3A4D;
+		--line:#3A4A5F;
+		--ink:#F1ECE2;
+		--muted:#93A6BB;
+		--amber:#F0B35A;
+		--amber-ink:#2A1E08;
+		--radius:6px;
+	}
+	*{box-sizing:border-box}
+	html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:15px;line-height:1.5}
+	a{color:var(--amber)}
+	header{padding:28px 32px 10px;display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+	header h1{margin:0;font-family:"JetBrains Mono",Consolas,monospace;font-weight:600;font-size:22px;letter-spacing:-.01em}
+	header p{margin:0;color:var(--muted)}
+	main{display:grid;grid-template-columns:320px 1fr;gap:20px;padding:12px 32px 40px}
+	@media (max-width:900px){main{grid-template-columns:1fr}}
+	.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+	.controls{padding:18px;display:flex;flex-direction:column;gap:16px;align-self:start}
+	label.field{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--muted)}
+	textarea,select,input[type=text]{width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px 10px;font:inherit;font-size:15px}
+	textarea{font-family:"JetBrains Mono",Consolas,monospace;resize:vertical;min-height:64px}
+	textarea:focus,select:focus,input:focus,button:focus-visible{outline:2px solid var(--amber);outline-offset:1px}
+	.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+	.toggle{display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer}
+	.toggle input{accent-color:var(--amber);width:16px;height:16px}
+	.range{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+	.range input{flex:1;accent-color:var(--amber)}
+	button{font:inherit;font-size:14px;font-weight:500;border:1px solid var(--line);background:var(--panel2);color:var(--ink);padding:8px 14px;border-radius:4px;cursor:pointer}
+	button:hover{border-color:var(--muted)}
+	button.primary{background:var(--amber);color:var(--amber-ink);border-color:var(--amber)}
+	button.primary:hover{filter:brightness(1.06)}
+	.output{display:flex;flex-direction:column;min-width:0}
+	.output .bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+	.output .bar .spacer{flex:1}
+	.output .meta{color:var(--muted);font-size:13px}
+	pre{margin:0;padding:20px;overflow:auto;font-family:"JetBrains Mono","Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-variant-ligatures:none;line-height:1;white-space:pre;tab-size:4;min-height:220px;-webkit-font-smoothing:antialiased}
+	pre .kw{color:var(--muted)}
+	.gallery{grid-column:1/-1}
+	.gallery h2{font-size:16px;font-weight:500;margin:0;padding:14px 18px;border-bottom:1px solid var(--line);color:var(--muted)}
+	.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--line)}
+	.tile{background:var(--panel);padding:14px 16px;cursor:pointer;border:0;text-align:left;color:var(--ink);border-radius:0;display:flex;flex-direction:column;gap:8px}
+	.tile:hover{background:var(--panel2)}
+	.tile[aria-pressed=true]{background:var(--panel2);box-shadow:inset 3px 0 0 var(--amber)}
+	.tile span{font-size:13px;color:var(--muted)}
+	.tile pre{padding:0;min-height:0;font-size:10px;overflow:hidden;line-height:1}
+	.about{grid-column:1/-1;padding:18px 22px;max-width:100%}
+	.about h2{font-size:16px;font-weight:500;margin:0 0 8px}
+	.about h2+p,.about h2+ul{margin-top:0}
+	.about p,.about li{max-width:72ch;color:var(--ink)}
+	.about ul{padding-left:20px;margin:0 0 18px}
+	.about code{font-family:"JetBrains Mono",Consolas,monospace;background:var(--bg);padding:1px 5px;border-radius:3px}
+	footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 32px 28px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+	footer nav a{margin-left:14px}
+	.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--amber);color:var(--amber-ink);padding:8px 16px;border-radius:4px;font-weight:500;opacity:0;transition:opacity .18s,transform .18s;pointer-events:none}
+	.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+	@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body id="top">
+<header>
+	<img src="favicon.svg" alt="" width="34" height="34" style="align-self:center">
+	<h1>Banner Forge</h1>
+	<p>Turn a name into a box-drawing banner, then paste it into SQL, CMD, PowerShell, Bash, Python and more.</p>
+</header>
+
+<main>
+	<section class="panel controls" aria-label="Settings">
+		<label class="field">Text (one banner per line)
+			<textarea id="text" spellcheck="false">Hello World</textarea>
+		</label>
+		<label class="field">Letter style
+			<select id="style"></select>
+		</label>
+		<label class="field">Output format
+			<select id="format"></select>
+		</label>
+		<div class="row">
+			<label class="toggle"><input type="checkbox" id="frame"> Frame around banner</label>
+			<label class="toggle"><input type="checkbox" id="upper"> Uppercase all</label>
+		</div>
+		<label class="range">Letter gap <input type="range" id="gap" min="1" max="4" value="2"><b id="gapv">2</b></label>
+		<label class="range">Preview size <input type="range" id="size" min="8" max="18" value="13"><b id="sizev">13</b></label>
+		<div class="row">
+			<button class="primary" id="copy">Copy</button>
+			<button id="download">Download .txt</button>
+		</div>
+	</section>
+
+	<section class="panel output" aria-label="Result">
+		<div class="bar">
+			<span class="meta" id="info"></span>
+			<span class="spacer"></span>
+			<span class="meta">Uses a monospace font when pasted (SSMS, Notepad++, terminals all work).</span>
+		</div>
+		<pre id="out" tabindex="0"></pre>
+	</section>
+
+	<section class="panel gallery" aria-label="All styles">
+		<h2>Every style with your text — click one to use it</h2>
+		<div class="tiles" id="tiles"></div>
+	</section>
+	<section class="panel about" aria-label="About">
+		<h2>What Banner Forge does</h2>
+		<p>Banner Forge is a free, browser-only text banner generator. Type a word, a name or a project title and it is drawn as large letters made of Unicode box-drawing characters (╔═╗ ┌─┐ ┏━┓ ╭─╮), solid blocks (█ ▓ ░) or plain ASCII (# * +-|). Nothing is uploaded; everything runs locally in your browser.</p>
+		<h2>Where people use these banners</h2>
+		<ul>
+			<li>SQL Server, MySQL and PostgreSQL scripts: a readable header block above stored procedures, functions and migration scripts.</li>
+			<li>Windows batch files and PowerShell scripts: a start-up banner in the console (the CMD format adds <code>chcp 65001</code> so box characters display correctly).</li>
+			<li>Bash, Python, Node.js and C# programs: a splash banner printed when the tool starts.</li>
+			<li>README files, code comments, GitHub issues and any place that renders monospace text.</li>
+		</ul>
+		<h2>Tips</h2>
+		<ul>
+			<li>Arabic and Persian text is supported (letters join inside words, drawn right-to-left); accented Latin letters are simplified.</li>
+			<li>Use the ASCII styles (hash, stars, ASCII lines) when the file may be opened in an editor that does not support UTF-8.</li>
+			<li>Put each word on its own line to stack banners vertically and keep them narrow.</li>
+			<li>Copy pastes the exact text; Download saves a UTF-8 .txt file.</li>
+		</ul>
+	</section>
+</main>
+<footer>
+	<span>Banner Forge · free ASCII and box-drawing banner generator</span>
+	<nav><a href="#top">Top</a> <a href="sitemap.xml">Sitemap</a> <a href="https://github.com/" rel="noopener">Source</a></nav>
+</footer>
+<div class="toast" id="toast">Copied</div>
+
+<script>
+/* ---------- base font: 5x7 pixel bitmaps ('#' = filled) ---------- */
+const FONT = {
+	A:['.###.','#...#','#...#','#####','#...#','#...#','#...#'],
+	B:['####.','#...#','#...#','####.','#...#','#...#','####.'],
+	C:['.###.','#...#','#....','#....','#....','#...#','.###.'],
+	D:['####.','#...#','#...#','#...#','#...#','#...#','####.'],
+	E:['#####','#....','#....','####.','#....','#....','#####'],
+	F:['#####','#....','#....','####.','#....','#....','#....'],
+	G:['.###.','#...#','#....','#.###','#...#','#...#','.####'],
+	H:['#...#','#...#','#...#','#####','#...#','#...#','#...#'],
+	I:['#####','..#..','..#..','..#..','..#..','..#..','#####'],
+	J:['#####','...#.','...#.','...#.','...#.','#..#.','.##..'],
+	K:['#...#','#..#.','#.#..','##...','#.#..','#..#.','#...#'],
+	L:['#....','#....','#....','#....','#....','#....','#####'],
+	M:['#...#','##.##','#.#.#','#.#.#','#...#','#...#','#...#'],
+	N:['#...#','##..#','#.#.#','#..##','#...#','#...#','#...#'],
+	O:['.###.','#...#','#...#','#...#','#...#','#...#','.###.'],
+	P:['####.','#...#','#...#','####.','#....','#....','#....'],
+	Q:['.###.','#...#','#...#','#...#','#.#.#','#..#.','.##.#'],
+	R:['####.','#...#','#...#','####.','#.#..','#..#.','#...#'],
+	S:['.####','#....','#....','.###.','....#','....#','####.'],
+	T:['#####','..#..','..#..','..#..','..#..','..#..','..#..'],
+	U:['#...#','#...#','#...#','#...#','#...#','#...#','.###.'],
+	V:['#...#','#...#','#...#','#...#','#...#','.#.#.','..#..'],
+	W:['#...#','#...#','#...#','#.#.#','#.#.#','##.##','#...#'],
+	X:['#...#','#...#','.#.#.','..#..','.#.#.','#...#','#...#'],
+	Y:['#...#','#...#','.#.#.','..#..','..#..','..#..','..#..'],
+	Z:['#####','....#','...#.','..#..','.#...','#....','#####'],
+	a:['.....','.....','.###.','....#','.####','#...#','.####'],
+	b:['#....','#....','#.##.','##..#','#...#','#...#','####.'],
+	c:['.....','.....','.###.','#....','#....','#...#','.###.'],
+	d:['....#','....#','.##.#','#..##','#...#','#...#','.####'],
+	e:['.....','.....','.###.','#...#','#####','#....','.###.'],
+	f:['..##.','.#..#','.#...','###..','.#...','.#...','.#...'],
+	g:['.....','.####','#...#','#...#','.####','....#','.###.'],
+	h:['#....','#....','#.##.','##..#','#...#','#...#','#...#'],
+	i:['..#..','.....','.##..','..#..','..#..','..#..','.###.'],
+	j:['...#.','.....','..##.','...#.','...#.','#..#.','.##..'],
+	k:['#....','#....','#..#.','#.#..','##...','#.#..','#..#.'],
+	l:['.##..','..#..','..#..','..#..','..#..','..#..','.###.'],
+	m:['.....','.....','##.#.','#.#.#','#.#.#','#...#','#...#'],
+	n:['.....','.....','#.##.','##..#','#...#','#...#','#...#'],
+	o:['.....','.....','.###.','#...#','#...#','#...#','.###.'],
+	p:['.....','####.','#...#','#...#','####.','#....','#....'],
+	q:['.....','.####','#...#','#...#','.####','....#','....#'],
+	r:['.....','.....','#.##.','##..#','#....','#....','#....'],
+	s:['.....','.....','.####','#....','.###.','....#','####.'],
+	t:['.#...','.#...','###..','.#...','.#...','.#..#','..##.'],
+	u:['.....','.....','#...#','#...#','#...#','#..##','.##.#'],
+	v:['.....','.....','#...#','#...#','#...#','.#.#.','..#..'],
+	w:['.....','.....','#...#','#...#','#.#.#','#.#.#','.#.#.'],
+	x:['.....','.....','#...#','.#.#.','..#..','.#.#.','#...#'],
+	y:['.....','#...#','#...#','#...#','.####','....#','.###.'],
+	z:['.....','.....','#####','...#.','..#..','.#...','#####'],
+	'0':['.###.','#...#','#..##','#.#.#','##..#','#...#','.###.'],
+	'1':['..#..','.##..','..#..','..#..','..#..','..#..','.###.'],
+	'2':['.###.','#...#','....#','...#.','..#..','.#...','#####'],
+	'3':['#####','...#.','..#..','...#.','....#','#...#','.###.'],
+	'4':['...#.','..##.','.#.#.','#..#.','#####','...#.','...#.'],
+	'5':['#####','#....','####.','....#','....#','#...#','.###.'],
+	'6':['..##.','.#...','#....','####.','#...#','#...#','.###.'],
+	'7':['#####','....#','...#.','..#..','.#...','.#...','.#...'],
+	'8':['.###.','#...#','#...#','.###.','#...#','#...#','.###.'],
+	'9':['.###.','#...#','#...#','.####','....#','...#.','.##..'],
+	'-':['...','...','...','###','...','...','...'],
+	'_':['.....','.....','.....','.....','.....','.....','#####'],
+	'.':['.','.','.','.','.','.','#'],
+	',':['..','..','..','..','..','.#','#.'],
+	'!':['#','#','#','#','#','.','#'],
+	'?':['.###.','#...#','....#','...#.','..#..','.....','..#..'],
+	"'":['#','#','.','.','.','.','.'],
+	':':['.','.','#','.','#','.','.'],
+	'/':['....#','....#','...#.','..#..','.#...','#....','#....'],
+	'&':['.##..','#..#.','#..#.','.##..','#.#.#','#..#.','.##.#'],
+	'@':['.###.','#...#','#.###','#.#.#','#.###','#....','.####'],
+	'#':['.#.#.','.#.#.','#####','.#.#.','#####','.#.#.','.#.#.'],
+	'+':['.....','..#..','..#..','#####','..#..','..#..','.....'],
+	'=':['.....','.....','#####','.....','#####','.....','.....'],
+	'*':['.....','#.#.#','.###.','#####','.###.','#.#.#','.....'],
+	'(':['.#','#.','#.','#.','#.','#.','.#'],
+	')':['#.','.#','.#','.#','.#','.#','#.'],
+	'"':['#.#','#.#','...','...','...','...','...'],
+	'$':['..#..','.####','#.#..','.###.','..#.#','####.','..#..'],
+	'%':['##..#','##.#.','..#..','..#..','..#..','.#.##','#..##'],
+	';':['..','..','.#','..','.#','.#','#.'],
+	'<':['...#','..#.','.#..','#...','.#..','..#.','...#'],
+	'>':['#...','.#..','..#.','...#','..#.','.#..','#...'],
+	'[':['###','#..','#..','#..','#..','#..','###'],
+	']':['###','..#','..#','..#','..#','..#','###'],
+	'\\':['#....','#....','.#...','..#..','...#.','....#','....#'],
+	'^':['..#..','.#.#.','#...#','.....','.....','.....','.....'],
+	'`':['#.','.#','..','..','..','..','..'],
+	'{':['.##','.#.','.#.','##.','.#.','.#.','.##'],
+	'}':['##.','.#.','.#.','.##','.#.','.#.','##.'],
+	'|':['#','#','#','#','#','#','#'],
+	'~':['.....','.....','.#...','#.#.#','...#.','.....','.....'],
+	'«':['.....','..#.#','.#.#.','#.#..','.#.#.','..#.#','.....'],
+	'»':['.....','#.#..','.#.#.','..#.#','.#.#.','#.#..','.....'],
+	'–':['.....','.....','.....','#####','.....','.....','.....'],
+	'—':['.......','.......','.......','#######','.......','.......','.......'],
+	'…':['.....','.....','.....','.....','.....','.....','#.#.#'],
+	'•':['.....','.....','.###.','#####','.###.','.....','.....'],
+	'°':['.#.','#.#','.#.','...','...','...','...'],
+	'€':['..###','.#...','####.','.#...','####.','.#...','..###'],
+	'£':['.###.','#...#','#....','####.','#....','#....','#####'],
+	'¥':['#...#','.#.#.','..#..','#####','..#..','#####','..#..'],
+	'×':['.....','#...#','.#.#.','..#..','.#.#.','#...#','.....'],
+	'÷':['.....','..#..','.....','#####','.....','..#..','.....'],
+	'±':['..#..','..#..','#####','..#..','..#..','.....','#####'],
+	'♥':['.##.##.','#######','#######','#######','.#####.','..###..','...#...'],
+	'♦':['...#...','..###..','.#####.','#######','.#####.','..###..','...#...'],
+	'♠':['...#...','..###..','.#####.','#######','##.#.##','...#...','..###..'],
+	'♣':['..###..','..###..','##.#.##','#######','##.#.##','...#...','..###..'],
+	'★':['...#...','...#...','.#####.','#######','..###..','.##.##.','##...##'],
+	'♪':['..#..','..##.','..#.#','..#..','..#..','###..','.##..'],
+	'→':['.......','...#...','....#..','#######','....#..','...#...','.......'],
+	'←':['.......','...#...','..#....','#######','..#....','...#...','.......'],
+	'↑':['..#..','.###.','#.#.#','..#..','..#..','..#..','..#..'],
+	'↓':['..#..','..#..','..#..','..#..','#.#.#','.###.','..#..'],
+	'✓':['....#','....#','...#.','#..#.','.#.#.','..#..','.....'],
+	'☺':['.#####.','#.....#','#.#.#.#','#.....#','#.#.#.#','#..#..#','.#####.'],
+	'∞':['.......','.##.##.','#..#..#','#..#..#','.##.##.','.......','.......'],
+	'¿':['..#..','.....','..#..','.#...','#....','#...#','.###.'],
+	'¡':['#','.','#','#','#','#','#'],
+	'¢':['..#..','.####','#.#..','#.#..','#.#..','.####','..#..'],
+	'µ':['.....','#...#','#...#','#...#','#..##','#.#.#','#....'],
+	'●':['.....','.###.','#####','#####','#####','.###.','.....'],
+	'○':['.....','.###.','#...#','#...#','#...#','.###.','.....'],
+	'■':['.....','#####','#####','#####','#####','#####','.....'],
+	'▲':['.......','...#...','..###..','.#####.','#######','.......','.......'],
+	'▼':['.......','.......','#######','.#####.','..###..','...#...','.......'],
+	'►':['#....','##...','###..','####.','###..','##...','#....'],
+	'◄':['....#','...##','..###','.####','..###','...##','....#'],
+	'☻':['.#####.','#.....#','#.#.#.#','#.....#','#.#.#.#','#..#..#','.#####.'],
+	'😄':['.#####.','#.....#','#.#.#.#','#.....#','#.###.#','#..#..#','.#####.'],
+	'😢':['.#####.','#.....#','#.#.#.#','#.....#','#..#..#','#.#.#.#','.#####.'],
+	'😐':['.#####.','#.....#','#.#.#.#','#.....#','#.....#','#.###.#','.#####.'],
+	'🙄':['.#####.','#.#.#.#','#.....#','#.....#','#.....#','#.###.#','.#####.'],
+	'😮':['.#####.','#.....#','#.#.#.#','#.....#','#..#..#','#.#.#.#','.#####.'],
+	'👍':['....##.','....#.#','#####.#','#...###','#....##','#....##','######.'],
+	'🤝':['.......','##...##','###.###','.#####.','..###..','.##.##.','.......'],
+	'🔥':['...#...','..##...','..###..','.##.##.','##...##','##...##','.#####.'],
+	'🚀':['...#...','..###..','..###..','..#.#..','.#####.','.##.##.','...#...'],
+	'⚡':['...##','..##.','.##..','#####','..##.','.##..','##...'],
+	'☀':['#..#..#','.#####.','.#...#.','##...##','.#...#.','.#####.','#..#..#'],
+	'🌙':['..###','.##..','##...','##...','##...','.##..','..###'],
+	'☕':['.......','######.','#....##','#....##','#....#.','.####..','.......'],
+	'💡':['.###.','#...#','#...#','.#.#.','..#..','.###.','.###.'],
+	'🔔':['..#..','.###.','.###.','.###.','#####','.....','..#..'],
+	'🔒':['.###.','#...#','#...#','#####','##.##','#####','#####'],
+	'⚠':['...#...','..###..','..#.#..','.#.#.#.','.#...#.','#..#..#','#######'],
+	'□':['#####','#...#','#...#','#...#','#...#','#...#','#####'],
+	' ':['...','...','...','...','...','...','...']
+};
+// characters rewritten before drawing
+const EXPAND = {'أ':'ا','إ':'ا','آ':'ا','ٱ':'ا','ة':'ه','ئ':'ي','ؤ':'و','ی':'ي','ك':'ك','ک':'ك','گ':'ك','پ':'ب','چ':'ج','ژ':'ز','ڤ':'ف','ڨ':'ق','ۆ':'و','ې':'ي','٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9','۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9','؟':'?','،':',','؛':';','٪':'%','ـ':'','☆':'★','✦':'♦','♫':'♪♪','✔':'✓','✗':'X','✘':'X','❤':'♥','♡':'♥','½':'1/2','¼':'1/4','¾':'3/4','¹':'1','²':'2','³':'3','⁰':'0','º':'°','◆':'♦','◇':'♦','▶':'►','◀':'◄','•':'•','·':'.','©':'(C)','®':'(R)','™':'TM','“':'"','”':'"','„':'"','‘':"'",'’':"'",'‚':"'",'ß':'ss','æ':'ae','Æ':'AE','œ':'oe','Œ':'OE','ø':'o','Ø':'O','đ':'d','Đ':'D','ł':'l','Ł':'L','þ':'th','Þ':'TH','ı':'i','\u00a0':' ','\t':' '};
+// emoji aliases -> drawn glyph
+const EMOJI = {
+	'😀😃😄😁😆😅😂🤣😊🙂😉😋😎🤗🥰😍🤩😘🙃😜😝🤪😇🥳':'😄',
+	'☺':'☺','☻':'☻',
+	'😢😭🙁☹😞😔😟😕😣😖😫😩🥺😿':'😢',
+	'😐😑😶😬🤐':'😐',
+	'🙄😒😏':'🙄',
+	'😮😯😲😱🤯😳':'😮',
+	'👍👌🤙':'👍','👎':'👎','🤝🙏👏🫱🫲':'🤝',
+	'❤💙💚💛🧡💜🖤🤍🤎💕💖💗💓💞💘💝♥':'♥',
+	'⭐🌟✨🌠':'★','🔥':'🔥','🚀':'🚀','⚡':'⚡','☀🌞':'☀','🌙🌛🌜':'🌙','☕🍵':'☕','💡':'💡','🔔':'🔔','🔒🔐':'🔒','🔓':'🔓',
+	'⚠':'⚠','✅✔☑':'✓','❌✖❎':'X','🎉🎊':'★','💯':'100','👋':'👍','🎵🎶':'♪','🔑':'🔑','🐛':'🐛'
+};
+const EMOJI_MAP = {};
+for(const [keys,val] of Object.entries(EMOJI)) for(const k of keys) EMOJI_MAP[k]=val;
+// a few aliases that need text rather than a glyph
+Object.assign(EMOJI_MAP,{'👎':'👍','🔓':'🔒','🔑':'🔒','🐛':'*'});
+let unsupported = new Set();
+function normalizeText(t){
+	let out='';
+	t = t.replace(/[\uFE0E\uFE0F\u200D\u20E3\u200E\u200F]|[\u{1F3FB}-\u{1F3FF}]|[\u064B-\u065F\u0670\u06D6-\u06ED]/gu,'');
+	for(const ch of t){
+		let e = EXPAND[ch] ?? EMOJI_MAP[ch] ?? ch;
+		if(e===ch && !FONT[ch] && /\p{Extended_Pictographic}/u.test(ch)){
+			const cp = ch.codePointAt(0);
+			const face = (cp>=0x1F600&&cp<=0x1F64F)||(cp>=0x1F910&&cp<=0x1F92F)||(cp>=0x1F970&&cp<=0x1F97F)||cp===0x1F9D0;
+			e = face ? '😐' : ch;
+		}
+		const plain = e.normalize('NFD').replace(/\p{M}/gu,'');
+		out += $('upper').checked ? plain.toUpperCase() : plain;
+	}
+	return out;
+}
+const ROWS = 7;
+
+/* ---------- Arabic: contextual forms on a shared baseline (row 5) ----------
+   A = initial/medial body (connects to the next letter), E = final/isolated body.
+   join: D = joins both sides, R = joins only to the previous letter, N = never. */
+const AR = {
+	'ا':{join:'R',E:['#','#','#','#','#','#','.']},
+	'ب':{join:'D',A:['...','...','...','.#.','.#.','###','.#.'],E:['.......','.......','.......','#.....#','#.....#','.#####.','...#...']},
+	'ت':{join:'D',A:['...','#.#','...','.#.','.#.','###','...'],E:['.......','..#.#..','.......','#.....#','#.....#','.#####.','.......']},
+	'ث':{join:'D',A:['.#.','#.#','...','.#.','.#.','###','...'],E:['...#...','..#.#..','.......','#.....#','#.....#','.#####.','.......']},
+	'ن':{join:'D',A:['...','.#.','...','.#.','.#.','###','...'],E:['.......','...#...','.......','#.....#','#.....#','.#####.','.......']},
+	'ي':{join:'D',A:['...','...','...','.#.','.#.','###','#.#'],E:['.......','.......','.......','#.....#','#.....#','.#####.','..#.#..']},
+	'ى':{join:'D',A:['...','...','...','.#.','.#.','###','...'],E:['.......','.......','.......','#.....#','#.....#','.#####.','.......']},
+	'ج':{join:'D',A:['......','......','......','..####','.#...#','######','...#..'],E:['.......','.......','..#####','.#.....','#......','.######','...#...']},
+	'ح':{join:'D',A:['......','......','......','..####','.#...#','######','......'],E:['.......','.......','..#####','.#.....','#......','.######','.......']},
+	'خ':{join:'D',A:['......','...#..','......','..####','.#...#','######','......'],E:['...#...','.......','..#####','.#.....','#......','.######','.......']},
+	'د':{join:'R',E:['....','....','.##.','...#','...#','####','....']},
+	'ذ':{join:'R',E:['..#.','....','.##.','...#','...#','####','....']},
+	'ر':{join:'R',E:['....','....','....','...#','...#','...#','###.']},
+	'ز':{join:'R',E:['..#.','....','....','...#','...#','...#','###.']},
+	'و':{join:'R',E:['.....','.....','.###.','#...#','.####','....#','####.']},
+	'س':{join:'D',A:['.....','.....','.....','.....','#.#.#','#####','.....'],E:['.........','.........','.........','.........','#...#.#.#','#...#####','.###.....']},
+	'ش':{join:'D',A:['..#..','.#.#.','.....','.....','#.#.#','#####','.....'],E:['......#..','.....#.#.','.........','.........','#...#.#.#','#...#####','.###.....']},
+	'ص':{join:'D',A:['......','......','......','..###.','.#...#','######','......'],E:['........','........','........','#...###.','#..#...#','#..#####','.##.....']},
+	'ض':{join:'D',A:['......','....#.','......','..###.','.#...#','######','......'],E:['........','.....#..','........','#...###.','#..#...#','#..#####','.##.....']},
+	'ط':{join:'D',A:['..#...','..#...','..#...','..###.','.#...#','######','......'],E:['..#...','..#...','..#...','..###.','.#...#','######','......']},
+	'ظ':{join:'D',A:['..#.#.','..#...','..#...','..###.','.#...#','######','......'],E:['..#.#.','..#...','..#...','..###.','.#...#','######','......']},
+	'ع':{join:'D',A:['.....','.....','.####','#....','#....','#####','.....'],E:['.......','..####.','.#....#','.#.....','..####.','#.....#','.#####.']},
+	'غ':{join:'D',A:['..#..','.....','.####','#....','#....','#####','.....'],E:['...#...','..####.','.#....#','.#.....','..####.','#.....#','.#####.']},
+	'ف':{join:'D',A:['..#..','.....','.....','.###.','.#.#.','#####','.....'],E:['...#...','.......','.......','...###.','...#.#.','#..####','.###...']},
+	'ق':{join:'D',A:['.#.#.','.....','.....','.###.','.#.#.','#####','.....'],E:['..#.#..','.......','.......','...###.','...#.#.','#..####','.###...']},
+	'ك':{join:'D',A:['..###','....#','....#','....#','....#','#####','.....'],E:['...###','.....#','.....#','.##..#','..#..#','######','......']},
+	'ل':{join:'D',A:['..#','..#','..#','..#','..#','###','...'],E:['.....#','.....#','.....#','.....#','#....#','.#####','......']},
+	'م':{join:'D',A:['....','....','....','.##.','#..#','####','....'],E:['.....','.....','.....','.###.','#...#','#####','#....']},
+	'ه':{join:'D',A:['.....','.....','.....','.###.','#...#','#####','.....'],E:['.....','.....','.....','.###.','#...#','#...#','.###.']},
+	'ة':{join:'R',E:['.....','.#.#.','.....','.###.','#...#','#...#','.###.']},
+	'ء':{join:'N',E:['....','....','.###','#...','.##.','..#.','....']}
+};
+function arabicWord(word){
+	const L=[...word], out=[];
+	L.forEach((ch,i)=>{
+		const info=AR[ch];
+		if(!info){ out.push(FONT[ch]||FONT['□']); if(!FONT[ch]) unsupported.add(ch); return; }
+		const prev=i>0?AR[L[i-1]]:null, next=i<L.length-1?AR[L[i+1]]:null;
+		const cR = !!(prev && prev.join==='D');
+		const cL = info.join==='D' && !!next;
+		const bm=(cL?info.A:info.E).map(r=>[...r]);
+		const row=bm[5], first=row.indexOf('#'), last=row.lastIndexOf('#');
+		if(cL) for(let c=0;c<first;c++) row[c]='#';
+		if(cR) for(let c=last+1;c<row.length;c++) row[c]='#';
+		// unconnected neighbours inside a word keep a one-column breathing space
+		const gapRight = (i>0 && !cR) ? '.' : '';
+		out.push(bm.map(r=>r.join('')+gapRight));
+	});
+	return out.reverse();
+}
+
+/* ---------- outline tracer: bitmap -> single-line box characters ---------- */
+// bits: up=1 right=2 down=4 left=8
+const JOIN = {0:' ',6:'┌',12:'┐',3:'└',9:'┘',10:'─',5:'│',7:'├',13:'┤',14:'┬',11:'┴',15:'┼'};
+function outline(bitmap){
+	const H=bitmap.length, W=Math.max(...bitmap.map(r=>r.length));
+	const cell=(r,c)=>(r>=0&&r<H&&c>=0&&c<W&&bitmap[r][c]==='#')?1:0;
+	const out=[];
+	for(let i=0;i<=H;i++){
+		let line='';
+		for(let j=0;j<=W;j++){
+			const NW=cell(i-1,j-1),NE=cell(i-1,j),SW=cell(i,j-1),SE=cell(i,j);
+			let b=0;
+			if(NW!==NE)b|=1; if(NE!==SE)b|=2; if(SW!==SE)b|=4; if(NW!==SW)b|=8;
+			line+=JOIN[b]??' ';
+		}
+		out.push(line);
+	}
+	return out;
+}
+
+/* ---------- styles ---------- */
+const SINGLE = '┌┐└┘─│├┤┬┴┼';
+function mapTo(target){ const m={}; [...SINGLE].forEach((c,i)=>m[c]=target[i]); return s=>[...s].map(c=>m[c]??c).join(''); }
+const fill = ch => s=>[...s].map(c=>c==='#'?ch:' ').join('');
+const STYLES = [
+	{id:'double', name:'Double line', desc:'╔═╗ ║ ╚═╝', fn:mapTo('╔╗╚╝═║╠╣╦╩╬')},
+	{id:'single', name:'Single line', desc:'┌─┐ │ └─┘', fn:s=>s},
+	{id:'heavy', name:'Heavy line', desc:'┏━┓ ┃ ┗━┛', fn:mapTo('┏┓┗┛━┃┣┫┳┻╋')},
+	{id:'rounded', name:'Rounded corners', desc:'╭─╮ │ ╰─╯', fn:mapTo('╭╮╰╯─│├┤┬┴┼')},
+	{id:'dbl-h', name:'Double horizontal', desc:'╒═╕ │ ╘═╛ ╤ ╧', fn:mapTo('╒╕╘╛═│╞╡╤╧╪')},
+	{id:'dbl-v', name:'Double vertical', desc:'╓─╖ ║ ╙─╜ ╥ ╨', fn:mapTo('╓╖╙╜─║╟╢╥╨╫')},
+	{id:'ascii', name:'ASCII lines', desc:'+-+ | (plain ASCII)', fn:mapTo('++++-|+++++')},
+	{id:'block', name:'Solid block', desc:'█████', bitmap:true, fn:fill('█')},
+	{id:'shade', name:'Shaded block', desc:'▓▓▓ with ░ shadow', bitmap:true, post:'shadow'},
+	{id:'halfblock', name:'Half blocks', desc:'▀▄ compact (4 rows)', bitmap:true, post:'half'},
+	{id:'hash', name:'ASCII hash', desc:'##### (safe in any encoding)', bitmap:true, fn:fill('#')},
+	{id:'star', name:'ASCII stars', desc:'*****', bitmap:true, fn:fill('*')},
+	{id:'dots', name:'Dot matrix', desc:'●●●', bitmap:true, fn:fill('●')}
+];
+
+/* ---------- rendering ---------- */
+function renderLine(text, gap){
+	const norm=normalizeText(text);
+	const items=[];
+	const pushPlain=str=>{ for(const ch of str){ let g=FONT[ch]; if(!g){ g=FONT['□']; unsupported.add(ch); } items.push({bm:g}); } };
+	const runRe=/[\u0600-\u06FF]+(?:[ ,.!?:;]+(?:[\u0600-\u06FF]+|\d+))*/g;
+	let pos=0, m;
+	while((m=runRe.exec(norm))){
+		pushPlain(norm.slice(pos,m.index));
+		const tokens=m[0].match(/[\u0600-\u06FF]+|\d+|[^\u0600-\u06FF\d]+/g).reverse();
+		for(const t of tokens){
+			if(/^[\u0600-\u06FF]/.test(t)) arabicWord(t).forEach((bm,i)=>items.push({bm,tight:i>0}));
+			else pushPlain(t);
+		}
+		pos=m.index+m[0].length;
+	}
+	pushPlain(norm.slice(pos));
+	const rows=Array.from({length:ROWS},()=>'');
+	items.forEach((it,i)=>{
+		const pad=(i<items.length-1 && !items[i+1].tight) ? '.'.repeat(gap) : '';
+		for(let r=0;r<ROWS;r++) rows[r]+=it.bm[r]+pad;
+	});
+	return rows;
+}
+function applyStyle(bitmap, style){
+	let out;
+	if(!style.bitmap){
+		out = outline(bitmap).map(style.fn);
+	}else if(style.post==='shadow'){
+		const W = Math.max(...bitmap.map(l=>l.length))+1;
+		const grid = bitmap.map(l=>[...fill('▓')(l).padEnd(W)]);
+		grid.push(Array(W).fill(' '));
+		for(let r=0;r<bitmap.length;r++)for(let c=0;c<W-1;c++){
+			if(bitmap[r][c]==='#' && grid[r+1][c+1]===' ') grid[r+1][c+1]='░';
+		}
+		out = grid.map(a=>a.join(''));
+	}else if(style.post==='half'){
+		const W = Math.max(...bitmap.map(l=>l.length));
+		const s = bitmap.map(l=>l.padEnd(W,'.'));
+		if(s.length%2) s.push('.'.repeat(W));
+		out=[];
+		for(let r=0;r<s.length;r+=2){
+			let line='';
+			for(let c=0;c<W;c++){
+				const t=s[r][c]==='#', b=s[r+1][c]==='#';
+				line += t&&b?'█':t?'▀':b?'▄':' ';
+			}
+			out.push(line);
+		}
+	}else{
+		out = bitmap.map(style.fn);
+	}
+	return out.map(l=>l.replace(/\s+$/,''));
+}
+function frameLines(lines, style){
+	const w = Math.max(...lines.map(l=>[...l].length));
+	let box = ['┌','┐','└','┘','─','│'];
+	if(!style.bitmap) box = box.map(style.fn);
+	else if(style.id==='hash'||style.id==='star'||style.id==='dots') box = ['+','+','+','+','-','|'];
+	else box = ['╔','╗','╚','╝','═','║'];
+	const top = box[0]+box[4].repeat(w+2)+box[1];
+	const bot = box[2]+box[4].repeat(w+2)+box[3];
+	return [top, ...lines.map(l=>box[5]+' '+l.padEnd(w)+' '+box[5]), bot];
+}
+function buildBanner(){
+	const style = STYLES.find(s=>s.id===$('style').value);
+	const gap = +$('gap').value;
+	const texts = $('text').value.split('\n').filter(t=>t.trim().length);
+	let lines=[];
+	texts.forEach((t,i)=>{
+		if(i) lines.push('');
+		lines.push(...applyStyle(renderLine(t.trim(),gap),style));
+	});
+	if($('frame').checked) lines = frameLines(lines, style);
+	return lines;
+}
+
+/* ---------- output formats ---------- */
+const cmdEsc = s => s.replace(/[&|<>^()]/g,'^$&').replace(/%/g,'%%');
+const FORMATS = [
+	{id:'raw', name:'Plain text', fn:L=>L.join('\n')},
+	{id:'sql-line', name:'SQL line comments (-- )', fn:L=>L.map(l=>('-- '+l).trimEnd()).join('\n')},
+	{id:'sql-block', name:'SQL block comment (/* */)', fn:L=>['/*',...L,'*/'].join('\n')},
+	{id:'sql-print', name:'SQL PRINT statements', fn:L=>L.map(l=>`PRINT N'${l.replace(/'/g,"''")}'`).join('\n')},
+	{id:'cmd', name:'Windows CMD / .bat', fn:L=>['@echo off','chcp 65001 >nul',...L.map(l=>l.length?'echo.'+cmdEsc(l):'echo.')].join('\r\n')},
+	{id:'ps', name:'PowerShell', fn:L=>['$OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()',...L.map(l=>`Write-Host '${l.replace(/'/g,"''")}'`)].join('\n')},
+	{id:'bash', name:'Bash / sh', fn:L=>["cat << 'EOF'",...L,'EOF'].join('\n')},
+	{id:'py', name:'Python', fn:L=>['banner = r"""',...L,'"""','print(banner)'].join('\n')},
+	{id:'js', name:'JavaScript / Node', fn:L=>['const banner = String.raw`',...L.map(l=>l.replace(/`/g,'\\`')),'`;','console.log(banner);'].join('\n')},
+	{id:'cs', name:'C#', fn:L=>['Console.OutputEncoding = System.Text.Encoding.UTF8;','Console.WriteLine(@"',...L.map(l=>l.replace(/"/g,'""')),'");'].join('\n')},
+	{id:'c-style', name:'C / C++ / Java comment (/** */)', fn:L=>['/**',...L.map(l=>(' * '+l).trimEnd()),' */'].join('\n')},
+	{id:'hashc', name:'# comments (YAML, INI, Python)', fn:L=>L.map(l=>('# '+l).trimEnd()).join('\n')},
+	{id:'md', name:'Markdown code fence', fn:L=>['```',...L,'```'].join('\n')},
+	{id:'html', name:'HTML <pre>', fn:L=>['<pre style="font-family:monospace;line-height:1.1">',...L.map(l=>l.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')),'</pre>'].join('\n')}
+];
+
+/* ---------- wiring ---------- */
+const $ = id=>document.getElementById(id);
+STYLES.forEach(s=>$('style').add(new Option(`${s.name}  ${s.desc}`, s.id)));
+FORMATS.forEach(f=>$('format').add(new Option(f.name, f.id)));
+$('format').value='sql-line';
+
+let current='';
+function update(){
+	unsupported = new Set();
+	const lines = buildBanner();
+	const fmt = FORMATS.find(f=>f.id===$('format').value);
+	current = fmt.fn(lines);
+	$('out').textContent = current;
+	$('out').style.fontSize = $('size').value+'px';
+	$('sizev').textContent = $('size').value;
+	$('gapv').textContent = $('gap').value;
+	const w = Math.max(...lines.map(l=>[...l].length));
+	$('info').textContent = `${lines.length} lines, ${w} columns wide` + (unsupported.size ? ` · no glyph for: ${[...unsupported].join(' ')}` : '');
+	renderGallery();
+}
+function renderGallery(){
+	const tiles=$('tiles'); tiles.innerHTML='';
+	const first = $('text').value.split('\n').find(t=>t.trim()) || 'Hello';
+	STYLES.forEach(s=>{
+		const b=document.createElement('button'); b.className='tile'; b.type='button';
+		b.setAttribute('aria-pressed', s.id===$('style').value);
+		const pre=document.createElement('pre'); pre.textContent=applyStyle(renderLine(first.trim(),+$('gap').value),s).join('\n');
+		const cap=document.createElement('span'); cap.textContent=`${s.name}  ${s.desc}`;
+		b.append(pre,cap);
+		b.onclick=()=>{$('style').value=s.id;update();};
+		tiles.appendChild(b);
+	});
+}
+['text','style','format','frame','upper','gap','size'].forEach(id=>$(id).addEventListener('input',update));
+$('copy').onclick=async()=>{
+	try{ await navigator.clipboard.writeText(current); toast('Copied'); }
+	catch{ const r=document.createRange(); r.selectNodeContents($('out')); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); document.execCommand('copy'); toast('Copied'); }
+};
+$('download').onclick=()=>{
+	const blob=new Blob([current],{type:'text/plain;charset=utf-8'});
+	const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+	a.download=`banner-${$('style').value}-${$('format').value}.txt`; a.click(); URL.revokeObjectURL(a.href);
+	toast('Downloaded');
+};
+let tt; function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),1400); }
+update();
+</script>
+</body>
+</html>
